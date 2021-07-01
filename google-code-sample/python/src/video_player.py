@@ -76,18 +76,34 @@ class VideoPlayer:
 
     def pause_video(self):
         """Pauses the current video."""
-
-        print("pause_video needs implementation")
+        pause_video = self._current_video
+        if pause_video:
+            self.isPaused = True
+            print(f"Pausing Video:{self._current_video} ")
+            print("Stopping Video:",self._current_video.title)
+            self._current_video = pause_video
+            self.isPlaying = False
+        else:
+            print("No video playing currently")
 
     def continue_video(self):
         """Resumes playing the current video."""
+        # if self._current_video is not None:
+        #     if not self.pause_video:
+        #         print(f"Cannot continue video: Video is not paused")
+        #     else:
+        #         print(f"Continuing video: {self._current_video.title}")
+        # else:
+        #     print("Cannot continue video: No video is currently playing")
 
         print("continue_video needs implementation")
 
     def show_playing(self):
         """Displays video currently playing."""
-
-        print("show_playing needs implementation")
+        if self._current_video == None:
+            print("No videos playing now")
+        else:
+            print(f'video Playing:{self._current_video.title} ({self._current_video.video_id})[{self._current_video.tags}]')
 
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
@@ -150,7 +166,9 @@ class VideoPlayer:
         Args:
             search_term: The query to be used in search.
         """
-        print("search_videos needs implementation")
+        video_term = self._video_library.get_video(search_term)
+        if(video_term):
+            print(f"search results: {search_term}")
 
     def search_videos_tag(self, video_tag):
         """Display all videos whose tags contains the provided tag.
@@ -158,7 +176,9 @@ class VideoPlayer:
         Args:
             video_tag: The video tag to be used in search.
         """
-        print("search_videos_tag needs implementation")
+        video_tag_search = self._video_library.get_video(video_tag)
+        if (video_tag_search):
+            print(f"search results for video tag:{video_tag}")
 
     def flag_video(self, video_id, flag_reason=""):
         """Mark a video as flagged.
